@@ -1,4 +1,5 @@
 import User from "../models/user.js";
+import Follow from "../models/follow.js";
 import validators from "../helpers/validate.js";
 import bcrypt from "bcrypt";
 import createAccessToken from "../helpers/jwt.js";
@@ -111,13 +112,16 @@ const login = async (req, res) => {
   }
 };
 
-const profile = (req, res) => {
+const profile = async (req, res) => {
   const userIdentity = req.user;
+
+  const artistFollowed = await Follow.countDocuments({ user: userIdentity.id });
 
   return res.status(200).json({
     status: "success",
     message: "Bienvenido al perfil",
-    user: userIdentity,
+    artistFollowed,
+    playlists: 0,
   });
 };
 

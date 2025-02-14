@@ -48,6 +48,7 @@ const save = async (req, res) => {
 
 const remove = async (req, res) => {
   const albumId = req.params.id;
+  const artistId = req.user.id;
 
   if (!albumId) {
     return res.status(400).json({
@@ -57,7 +58,10 @@ const remove = async (req, res) => {
   }
 
   try {
-    const albumDeleted = await Album.findByIdAndDelete(albumId);
+    const albumDeleted = await Album.findOne({
+      _id: albumId,
+      artist: artistId,
+    });
 
     if (!albumDeleted) {
       return res.status(404).json({
@@ -65,6 +69,8 @@ const remove = async (req, res) => {
         message: "Álbum no encontrado",
       });
     }
+
+    await albumDeleted.deleteOne();
 
     await fs.promises.unlink(`./${albumDeleted.image}`);
 

@@ -5,6 +5,8 @@ import userRoutes from "./routes/user.routes.js";
 import artistRoutes from "./routes/artists.routes.js";
 import songRoutes from "./routes/song.routes.js";
 import albumRoutes from "./routes/album.routes.js";
+import followRoutes from "./routes/follow.routes.js";
+import playlistRoutes from "./routes/playlist.routes.js";
 import cookieParser from "cookie-parser";
 
 // Inicializar express mediante la constante app
@@ -30,6 +32,8 @@ app.use("/api/user", userRoutes);
 app.use("/api/artist", artistRoutes);
 app.use("/api/song", songRoutes);
 app.use("/api/album", albumRoutes);
+app.use("/api/follow", followRoutes);
+app.use("/api/playlist", playlistRoutes);
 
 app.listen(port, () => {
   console.log("App running on port", port);

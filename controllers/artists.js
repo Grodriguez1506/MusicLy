@@ -1,6 +1,7 @@
 import Artist from "../models/artists.js";
 import Song from "../models/song.js";
 import Album from "../models/album.js";
+import Follow from "../models/follow.js";
 import validators from "../helpers/validate.js";
 import bcrypt from "bcrypt";
 import createAccessToken from "../helpers/jwt.js";
@@ -137,12 +138,16 @@ const profile = async (req, res) => {
   try {
     const songs = await Song.countDocuments({ artist: artistIdentity.id });
     const albums = await Album.countDocuments({ artist: artistIdentity.id });
+    const followers = await Follow.countDocuments({
+      artist: artistIdentity.id,
+    });
 
     return res.status(200).json({
       status: "success",
       message: "Perfil de artista",
       albums,
       songs,
+      followers,
     });
   } catch (error) {
     console.log(error);
