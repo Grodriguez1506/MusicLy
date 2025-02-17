@@ -205,9 +205,29 @@ const list = async (req, res) => {
   }
 };
 
+const media = async (req, res) => {
+  const file = req.params.file;
+
+  const song = await Song.findById(file);
+
+  const filePath = path.resolve(path.join("./uploads", "songs", song.file));
+
+  fs.stat(filePath, (error, song) => {
+    if (error || !song) {
+      return res.status(200).json({
+        status: "error",
+        message: "La canción no existe",
+      });
+    }
+
+    return res.status(200).sendFile(filePath);
+  });
+};
+
 export default {
   save,
   edit,
   remove,
   list,
+  media,
 };

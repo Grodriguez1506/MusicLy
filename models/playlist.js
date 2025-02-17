@@ -13,6 +13,12 @@ const PlaylistSchema = Schema({
   image: {
     type: String,
   },
+  songs: [
+    {
+      type: Schema.ObjectId,
+      ref: "Song",
+    },
+  ],
   created_at: {
     type: Date,
     default: Date.now,

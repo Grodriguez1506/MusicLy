@@ -29,5 +29,6 @@ router.post(
 router.put("/edit/:id?", [auth, artistAccess], songController.edit);
 router.delete("/remove/:id?", [auth, artistAccess], songController.remove);
 router.get("/list/:id?/:page?", auth, songController.list);
+router.get("/media/:file?", auth, songController.media);
 
 export default router;

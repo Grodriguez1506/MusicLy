@@ -27,5 +27,10 @@ router.post(
   playlistController.save
 );
 router.delete("/remove/:id?", [auth, userAccess], playlistController.remove);
+router.put("/edit/:id?", [auth, userAccess], playlistController.edit);
+router.post("/add-song/:id?", [auth, userAccess], playlistController.addSong);
+router.get("/list", [auth, userAccess], playlistController.list);
+router.get("/one/:id?", [auth, userAccess], playlistController.one);
+router.get("/cover/:id?", [auth, userAccess], playlistController.cover);
 
 export default router;
